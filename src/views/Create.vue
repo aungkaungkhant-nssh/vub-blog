@@ -1,5 +1,5 @@
 <template>
-    <form action="">
+    <form  @submit.prevent="addpost">
         <label for="">Title</label>
         <input type="text" v-model="title">
         <label for="">Body</label>
@@ -15,8 +15,10 @@
 
 <script>
 import { ref } from '@vue/reactivity'
+import {useRouter} from "vue-router"
 export default {
     setup(){
+        let router=useRouter();
         let tags=ref([]);
         let title=ref("");
         let body=ref("");
@@ -27,7 +29,21 @@ export default {
             }
             tag.value="";
         }
-        return{tags,tag,handlekeydown,title,body}
+        let addpost=async()=>{
+            await fetch("http://localhost:3000/posts",{
+                method:"post",
+                headers:{
+                    "Content-type":"application/json"
+                },
+                body:JSON.stringify({
+                    title:title.value,
+                    body:body.value,
+                    tags:tags.value
+                })
+            })
+            router.push("/");
+        }
+        return{tags,tag,handlekeydown,title,body,addpost}
     }
 }
 </script>
