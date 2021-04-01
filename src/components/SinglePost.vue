@@ -1,6 +1,9 @@
 <template>
     <div class="post">
-        <h2>{{post.title}}</h2>
+        <router-link :to="{name:'Detail',params:{id:post.id}}">
+                 <h2>{{post.title}}</h2>
+        </router-link>
+   
         <p>{{post.body}}</p>
         <div v-for="tag in post.tags" :key="tag" class="pill">
          {{tag}}
