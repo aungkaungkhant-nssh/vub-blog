@@ -12,7 +12,7 @@ let getPosts=()=>{
                 let datas=await response.json();
                 posts.value=datas;
         }catch(err){
-            error.value=err.message();
+            error.value=err.message;
         }
         
     }
